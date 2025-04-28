@@ -1,0 +1,11 @@
+1. Breakdown of how the script handles arguments and options:
+In my script, I handled options using getopts, which made it easier to manage different flags like -n for showing line numbers and -v for inverting the match. I made sure that the script could recognize when multiple options like -vn or -nv were used together. After parsing the options, the script checks if the search string and the filename were provided correctly. If not, it shows a warning message. For the actual search, I used grep -i to perform a case-insensitive search, and depending on the flags, I either showed matching lines, inverted matches, or included line numbers in the output.
+
+2. If you were to support regex or -i/-c/-l options, how would your structure change?
+If I wanted to add support for regular expressions or extra options like -i, -c, or -l, I would extend the getopts section to recognize these new flags. I would add more cases to handle each new option separately and combine them properly if needed. For example, -c would count the number of matching lines instead of printing them, and -l would list only filenames that have a match. I would probably need to change the way I build the final grep command dynamically based on which options are active, to keep the script flexible and clean.
+
+3. What part of the script was hardest to implement and why?
+The hardest part for me was making sure that combining options like -v and -n worked correctly together. It wasn’t just about checking if the options exist — it was also about applying the logic properly when both options are active at the same time. Another tricky part was validating the arguments: I had to make sure the user actually provides a search string and a filename, and give a clear error message if not. Getting all these small checks right was a bit challenging but definitely worth it.
+
+4. Bonus: Improving option parsing with getopts and adding --help
+I added --help support by checking if the user entered --help as an argument. If they did, the script prints a clear usage guide showing how to use it and what the available options mean. Using getopts made the script cleaner and more organized because it separated the parsing of options from the main logic of the script. It also made it easier to add new options later without making the script messy.
